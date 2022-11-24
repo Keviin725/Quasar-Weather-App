@@ -3,12 +3,10 @@
 
     <div class="col q-pa-md">
 
-      <q-input v-model="search" placeholder="Search" dark borderless >
+      <q-input v-model="search" placeholder="Search" dark borderless>
 
         <template v-slot:before>
-          <q-icon name="my_location"
-            @click="getLocation"
-          />
+          <q-icon name="my_location" @click="getLocation" />
         </template>
 
 
@@ -25,11 +23,11 @@
       <div class="col text-white text-center">
 
         <div class="text-h4 text-weight-light">
-          {{weatherData.name}}
+          {{ weatherData.name }}
         </div>
 
         <div class="text-h6 text-weight-light">
-          {{weatherData.weather[0].main}}
+          {{ weatherData.weather[0].main }}
         </div>
 
         <div class="text-h1 text-weight-thin q-my-lg">
@@ -39,7 +37,7 @@
       </div>
 
       <div class="col text-center">
-        <img :src=" 'https://openweathermap.org/img/wn/${ weatherData.weather[0].icon }@2x.png' " >
+        <img :src="'http://openweathermap.org/img/wn/04n@2x.png'">
       </div>
 
     </template>
@@ -69,21 +67,22 @@
 
 
 
-export default({
+
+export default ({
   name: 'IndexPage',
-  data(){
-    return{
+  data() {
+    return {
 
       search: '',
       weatherData: null,
       lat: null,
       lon: null,
-      apiUrl:'https://api.openweathermap.org/data/2.5',
-      apiKey: //Put your own API Key here
+      apiUrl: 'https://api.openweathermap.org/data/2.5/weather',
+      apiKey: '4c421c71d265b836f222fde614371d10'
     }
   },
-  methods:{
-    getLocation(){
+  methods: {
+    getLocation() {
       navigator.geolocation.getCurrentPosition(position => {
         console.log('position: ', position)
         this.lat = position.coords.latitude
@@ -91,25 +90,31 @@ export default({
         this.getWeatherByCoords()
       })
     },
-    getWeatherByCoords(){
-      this.$axios('${ this.apiUrl }?lat=${ this.lat }&lon=${ this.lon }&appid=${ this.apiKey }&units=metric').then(response =>{
-        this.weatherData = response.data
+    async getWeatherByCoords() {
+      await this.$axios('https://api.openweathermap.org/data/2.5/weather?lat=-25.9549&lon=32.575&appid=4c421c71d265b836f222fde614371d10&units=metric')
+        .then(response => {
+          this.weatherData = response.data
+          console.log(this.weatherData)
 
-      })
+        })
+        .catch(error =>{
+          console.log(error)
+        })
     }
   }
 })
 </script>
 <style lang="scss">
-  .q-page{
-    background: linear-gradient(to bottom, #136a8a, #267871)
-  }
-  .skyline{
-    flex: 0 0 150px;
-    background-image: url(town.png);
-    background-size: contain;
-    background-position: bottom;
-    height: auto;
-    padding-bottom: 0;
-  }
+.q-page {
+  background: linear-gradient(to bottom, #136a8a, #267871)
+}
+
+.skyline {
+  flex: 0 0 150px;
+  background-image: url(town.png);
+  background-size: contain;
+  background-position: bottom;
+  height: auto;
+  padding-bottom: 0;
+}
 </style>
