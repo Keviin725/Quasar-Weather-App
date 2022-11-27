@@ -3,7 +3,7 @@
 
     <div class="col q-pa-md">
 
-      <q-input v-model="search" placeholder="Search" dark borderless>
+      <q-input v-model="search" placeholder="Search" dark borderless @keyup.enter="getWeatherBySearch">
 
         <template v-slot:before>
           <q-icon name="my_location" @click="getLocation" />
@@ -11,7 +11,7 @@
 
 
         <template v-slot:append>
-          <q-btn round dense flat icon="search" />
+          <q-btn round dense flat icon="search" @click="getWeatherBySearch"/>
         </template>
 
       </q-input>
@@ -90,8 +90,24 @@ export default ({
         this.getWeatherByCoords()
       })
     },
+<<<<<<< Updated upstream
     async getWeatherByCoords() {
       await this.$axios('https://api.openweathermap.org/data/2.5/weather?lat=-25.9549&lon=32.575&appid={YOUR API KEY}&units=metric')
+=======
+    getWeatherByCoords() {
+      this.$axios('https://api.openweathermap.org/data/2.5/weather?lat=-25.9549&lon=32.575&appid=4c421c71d265b836f222fde614371d10&units=metric')
+        .then(response => {
+          this.weatherData = response.data
+          console.log(this.weatherData)
+
+        })
+        .catch(error =>{
+          console.log(error)
+        })
+    },
+    getWeatherBySearch(){
+      this.$axios('${this.apiUrl}?q=${this.search}&appid=4c421c71d265b836f222fde614371d10')
+>>>>>>> Stashed changes
         .then(response => {
           this.weatherData = response.data
           console.log(this.weatherData)
