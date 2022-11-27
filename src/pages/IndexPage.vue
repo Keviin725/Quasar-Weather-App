@@ -37,7 +37,7 @@
       </div>
 
       <div class="col text-center">
-        <img :src="'http://openweathermap.org/img/wn/04n@2x.png'">
+        <img :src="'http://openweathermap.org/img/wn/${this.weatherData.icon}@2x.png'">
       </div>
 
     </template>
@@ -78,7 +78,7 @@ export default ({
       lat: null,
       lon: null,
       apiUrl: 'https://api.openweathermap.org/data/2.5/weather',
-      apiKey: //YOUR API KEY
+      apiKey: 'YOUR API KEY'
     }
   },
   methods: {
@@ -90,12 +90,8 @@ export default ({
         this.getWeatherByCoords()
       })
     },
-<<<<<<< Updated upstream
-    async getWeatherByCoords() {
-      await this.$axios('https://api.openweathermap.org/data/2.5/weather?lat=-25.9549&lon=32.575&appid={YOUR API KEY}&units=metric')
-=======
     getWeatherByCoords() {
-      this.$axios('https://api.openweathermap.org/data/2.5/weather?lat=-25.9549&lon=32.575&appid=4c421c71d265b836f222fde614371d10&units=metric')
+      this.$axios('https://api.openweathermap.org/data/2.5/weather?lat=-25.9549&lon=32.575&appid=${this.apiKey}&units=metric')
         .then(response => {
           this.weatherData = response.data
           console.log(this.weatherData)
@@ -106,8 +102,7 @@ export default ({
         })
     },
     getWeatherBySearch(){
-      this.$axios('${this.apiUrl}?q=${this.search}&appid=4c421c71d265b836f222fde614371d10')
->>>>>>> Stashed changes
+      this.$axios('${this.apiUrl}?q=${this.search}&appid=${this.apiKey}')
         .then(response => {
           this.weatherData = response.data
           console.log(this.weatherData)
