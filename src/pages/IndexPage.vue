@@ -78,7 +78,7 @@ export default ({
       lat: null,
       lon: null,
       apiUrl: 'https://api.openweathermap.org/data/2.5/weather',
-      apiKey: '4c421c71d265b836f222fde614371d10'
+      apiKey: //YOUR API KEY
     }
   },
   methods: {
@@ -91,7 +91,7 @@ export default ({
       })
     },
     async getWeatherByCoords() {
-      await this.$axios('https://api.openweathermap.org/data/2.5/weather?lat=-25.9549&lon=32.575&appid=4c421c71d265b836f222fde614371d10&units=metric')
+      await this.$axios('https://api.openweathermap.org/data/2.5/weather?lat=-25.9549&lon=32.575&appid={YOUR API KEY}&units=metric')
         .then(response => {
           this.weatherData = response.data
           console.log(this.weatherData)
