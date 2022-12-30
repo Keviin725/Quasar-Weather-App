@@ -37,7 +37,7 @@
       </div>
 
       <div class="col text-center">
-        <img :src="'http://openweathermap.org/img/wn/${this.weatherData.icon}@2x.png'">
+        <img :src="'http://openweathermap.org/img/wn/${this.weatherData.icon}2x.png'">
       </div>
 
     </template>
@@ -78,7 +78,7 @@ export default ({
       lat: null,
       lon: null,
       apiUrl: 'https://api.openweathermap.org/data/2.5/weather',
-      apiKey: 'YOUR API KEY'
+      apiKey: 'PUT YOUR OWN API KEY'
     }
   },
   methods: {
@@ -90,11 +90,11 @@ export default ({
         this.getWeatherByCoords()
       })
     },
-    getWeatherByCoords() {
-      this.$axios('https://api.openweathermap.org/data/2.5/weather?lat=-25.9549&lon=32.575&appid=${this.apiKey}&units=metric')
+   async getWeatherByCoords() {
+      await this.$axios('${this.apiUrl}?${this.lat}&lon=${this.lon}&appid=${this.apiKey}&units=metric')
         .then(response => {
           this.weatherData = response.data
-          console.log(this.weatherData)
+          console.log('WeatherData', this.weatherData)
 
         })
         .catch(error =>{
@@ -102,7 +102,7 @@ export default ({
         })
     },
     getWeatherBySearch(){
-      this.$axios('${this.apiUrl}?q=${this.search}&appid=${this.apiKey}')
+      this.$axios('${this.apiUrl}?q=${this.search}&appid=${ this.apiKey }')
         .then(response => {
           this.weatherData = response.data
           console.log(this.weatherData)
